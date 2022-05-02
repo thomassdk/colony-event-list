@@ -1,0 +1,5 @@
+.App {
+  background-image: linear-gradient(#f4f0f3, #eaf3f7);
+  min-height: 100vh;
+  overflow: auto;
+}
