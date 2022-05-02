@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap");
+
+.taskItem {
+  height: 90px;
+  padding: 26px 20px;
+  background: white;
+  font-family: "Mulish", sans-serif;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0px 0px 0px 0px #cef;
+}
+
+.taskItem:first-of-type {
+  border-radius: 6px 6px 0 0;
+}
+
+.taskItem:last-of-type {
+  border-radius: 0 0 6px 6px;
+}
+
+.taskItem:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 0px 1px #cef;
+  min-height: 90px;
+}
+
+.taskItem:hover .mainMessage {
+  overflow: visible;
+  white-space: normal;
+}
+
+.text {
+  /* Width - avatar - row gap */
+  width: calc(100% - 37px - 20px);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.mainMessage {
+  margin-bottom: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.date {
+  color: grey;
+  margin-top: 0px;
+}
+
+.identicon {
+  border-radius: 50%;
+}
