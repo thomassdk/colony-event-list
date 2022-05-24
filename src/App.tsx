@@ -5,7 +5,6 @@ import { getColonyEvents } from './Colony'
 import EventList from './components/EventList'
 import { TEvents } from './interfaces'
 
-
 function App() {
     const [events, setEvents] = useState<TEvents[]>([]);
 

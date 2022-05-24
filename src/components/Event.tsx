@@ -30,7 +30,6 @@ function createMessage(data: IEvent) {
 }
 
 export default function Task(data: IEvent) {
-
     return (
         <div className={styles.taskItem}>
             <Blockies
