@@ -1,6 +1,6 @@
 import styles from './Event.module.css'
 import Blockies from 'react-blockies';
-import { EventTypes, IEvent, IInit, IDomain, IRole, IPayout } from '../interfaces'
+import { TEvents } from '../interfaces'
 import { MAINNET_NETWORK_ADDRESS } from '../Colony'
 
 function parseTimestamp(timestamp: number) {
@@ -8,28 +8,24 @@ function parseTimestamp(timestamp: number) {
     return date.toLocaleString("en-GB", { day: "2-digit", month: 'short' })
 }
 
-function createMessage(data: IEvent) {
-    let event;
+function createMessage(data: TEvents) {
 
-    switch (data.eventType) {
-        case EventTypes.Init:
-            event = data as IInit;
-            return <>{event.message}</>
-        case EventTypes.Domain:
-            event = data as IDomain;
-            return <>Domain <strong>{event.domainId}</strong> added.</>
-        case EventTypes.Role:
-            event = data as IRole;
-            return <><strong>{event.role}</strong> role assigned to user <strong>{event.address}</strong> in domain <strong>{event.domainId}</strong>.</>
-        case EventTypes.Payout:
-            event = data as IPayout;
-            return <>User <strong>{event.address}</strong> claimed <strong>{event.amount}{event.token}</strong> payout from pot <strong>{event.fundingPotId}</strong>.</>
+    switch (data.type) {
+        case "init":
+            return <>{data.message}</>
+        case "domain":
+            return <>Domain <strong>{data.domainId}</strong> added.</>
+        case "role":
+            return <><strong>{data.role}</strong> role assigned to user <strong>{data.address}</strong> in domain <strong>{data.domainId}</strong>.</>
+        case "payout":
+            return <>User <strong>{data.address}</strong> claimed <strong>{data.amount}{data.token}</strong> payout from pot <strong>{data.fundingPotId}</strong>.</>
         default:
-            throw Error(`Unknown event of type --> ${data.eventType}`)
+            const _exhaustiveCheck: never = data;
+            return _exhaustiveCheck;
     }
 }
 
-export default function Task(data: IEvent) {
+export default function Task(data: TEvents) {
     return (
         <div className={styles.taskItem}>
             <Blockies
