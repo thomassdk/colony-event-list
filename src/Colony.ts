@@ -5,7 +5,7 @@ import { getLogs } from '@colony/colony-js';
 import { getBlockTime } from '@colony/colony-js';
 import { utils } from 'ethers';
 import { ColonyRole } from '@colony/colony-js';
-import { IInit, IDomain, IPayout, IRole, Tokens, TEvents } from './interfaces'
+import { Tokens, TEvents } from './interfaces'
 
 const MAINNET_NETWORK_ADDRESS = `0x5346D0f80e2816FaD329F2c140c870ffc3c3E2Ef`;
 const MAINNET_BETACOLONY_ADDRESS = `0x869814034d96544f3C62DE2aC22448ed79Ac8e70`;
@@ -40,7 +40,7 @@ const getColonyEvents = async function () {
     return sortEvents(events)
 }
 
-async function getInitEvent(colonyClient: ColonyClient): Promise<IInit> {
+async function getInitEvent(colonyClient: ColonyClient): Promise<TEvents> {
     const eventFilter = colonyClient.filters.ColonyInitialised(null, null);
 
     // Assuming there is only ever one colony initialised log
@@ -51,11 +51,11 @@ async function getInitEvent(colonyClient: ColonyClient): Promise<IInit> {
     return {
         message: newColonyMessage,
         timestamp,
-        type: "init",
+        type: "init" as const,
     }
 }
 
-async function getRoleEvents(colonyClient: ColonyClient): Promise<IRole[]> {
+async function getRoleEvents(colonyClient: ColonyClient): Promise<TEvents[]> {
     // @ts-ignore
     const eventFilter = colonyClient.filters.ColonyRoleSet();
 
@@ -72,11 +72,11 @@ async function getRoleEvents(colonyClient: ColonyClient): Promise<IRole[]> {
                 16,
             ),
             timestamp: await getBlockTime(provider, log.blockHash as string),
-            type: 'role',
+            type: 'role' as const,
         })))
 }
 
-async function getPayoutEvents(colonyClient: ColonyClient): Promise<IPayout[]> {
+async function getPayoutEvents(colonyClient: ColonyClient): Promise<TEvents[]> {
     const eventFilter = colonyClient.filters.PayoutClaimed(null, null, null);
 
     const eventLogs = await getLogs(colonyClient, eventFilter);
@@ -96,11 +96,11 @@ async function getPayoutEvents(colonyClient: ColonyClient): Promise<IPayout[]> {
                 16,
             ),
             timestamp: await getBlockTime(provider, log.blockHash as string),
-            type: 'payout',
+            type: 'payout' as const,
         })))
 }
 
-async function getDomainEvents(colonyClient: ColonyClient): Promise<IDomain[]> {
+async function getDomainEvents(colonyClient: ColonyClient): Promise<TEvents[]> {
     const eventFilter = colonyClient.filters.DomainAdded(null);
 
     const eventLogs = await getLogs(colonyClient, eventFilter);
@@ -114,7 +114,7 @@ async function getDomainEvents(colonyClient: ColonyClient): Promise<IDomain[]> {
                 16,
             ),
             timestamp: await getBlockTime(provider, log.blockHash as string),
-            type: 'domain',
+            type: 'domain' as const,
         })))
 }
 
