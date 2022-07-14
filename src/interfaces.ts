@@ -33,3 +33,4 @@ export interface IPayout extends IEvent {
 }
 
 export type TEvents = IInit | IDomain | IPayout | IRole;
+type EventTypes = TEvents["type"];
